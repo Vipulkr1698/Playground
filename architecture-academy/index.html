@@ -13,6 +13,12 @@
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: #0a0f1e; }
     ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+<<<<<<< HEAD
+=======
+    .btn { cursor: pointer; border: none; border-radius: 8px; font-weight: 700; transition: opacity .15s, transform .1s; }
+    .btn:active { transform: scale(0.96); }
+    .btn:hover { opacity: .85; }
+>>>>>>> claude/architecture-academy-setup-Sg7VS
   </style>
 </head>
 <body>
@@ -20,6 +26,7 @@
 
   <script type="text/babel">
     const WEEKS = [
+<<<<<<< HEAD
       { week: 1, title: "The Core Internet", topics: ["DNS", "IP", "HTTP", "Scaling"] },
       { week: 2, title: "Load Balancing & API Gateways", topics: ["Round Robin", "Consistent Hashing", "API Gateway"] },
       { week: 3, title: "Databases 101", topics: ["SQL vs NoSQL", "Replication", "Read Replicas"] },
@@ -40,6 +47,101 @@
       { level: 7, title: "Chief Architect",     minXP: 700 },
     ];
 
+=======
+      { week: 1, title: "The Core Internet",        topics: ["DNS", "IP", "HTTP", "Scaling"] },
+      { week: 2, title: "Load Balancing & API GW",  topics: ["Round Robin", "Hashing", "API Gateway"] },
+      { week: 3, title: "Databases 101",            topics: ["SQL vs NoSQL", "Replication", "Read Replicas"] },
+      { week: 4, title: "Caching Strategies",       topics: ["Redis", "Memcached", "Cache Invalidation"] },
+      { week: 5, title: "Database Scaling",         topics: ["Sharding", "Partitioning", "Federation"] },
+      { week: 6, title: "Async Processing",         topics: ["Message Queues", "Pub/Sub", "Kafka"] },
+      { week: 7, title: "Advanced Safety",          topics: ["Idempotency", "Rate Limiting", "Circuit Breakers"] },
+      { week: 8, title: "Capstone Project",         topics: ["BookMyShow Design", "Global Scale"] },
+    ];
+
+    const XP_LEVELS = [
+      { level: 1, title: "Intern Architect",     minXP: 0   },
+      { level: 2, title: "Junior Architect",     minXP: 50  },
+      { level: 3, title: "Mid Architect",        minXP: 120 },
+      { level: 4, title: "Senior Architect",     minXP: 220 },
+      { level: 5, title: "Staff Architect",      minXP: 350 },
+      { level: 6, title: "Principal Architect",  minXP: 500 },
+      { level: 7, title: "Chief Architect",      minXP: 700 },
+    ];
+
+    const SYSTEM_NODES = {
+      1: [
+        { label: "👤 User",             color: "#6366f1" },
+        { label: "🖥️ Single Server",    color: "#0ea5e9" },
+        { label: "🗄️ Single Database",  color: "#10b981" },
+      ],
+      2: [
+        { label: "👤 User",             color: "#6366f1" },
+        { label: "⚖️ Load Balancer",    color: "#f59e0b" },
+        { label: "🖥️ Server × N",       color: "#0ea5e9" },
+        { label: "🗄️ Database",         color: "#10b981" },
+      ],
+      3: [
+        { label: "👤 User",             color: "#6366f1" },
+        { label: "⚖️ Load Balancer",    color: "#f59e0b" },
+        { label: "🖥️ Server × N",       color: "#0ea5e9" },
+        { label: "🗄️ Primary DB",       color: "#10b981" },
+        { label: "🗄️ Replica DB",       color: "#059669" },
+      ],
+      4: [
+        { label: "👤 User",             color: "#6366f1" },
+        { label: "⚖️ Load Balancer",    color: "#f59e0b" },
+        { label: "🖥️ Server × N",       color: "#0ea5e9" },
+        { label: "⚡ Cache (Redis)",    color: "#ec4899" },
+        { label: "🗄️ DB + Replica",     color: "#10b981" },
+      ],
+      5: [
+        { label: "👤 User",             color: "#6366f1" },
+        { label: "⚖️ Load Balancer",    color: "#f59e0b" },
+        { label: "🖥️ Server × N",       color: "#0ea5e9" },
+        { label: "⚡ Cache",            color: "#ec4899" },
+        { label: "🗄️ Shard A",         color: "#10b981" },
+        { label: "🗄️ Shard B",         color: "#059669" },
+      ],
+      6: [
+        { label: "👤 User",             color: "#6366f1" },
+        { label: "⚖️ Load Balancer",    color: "#f59e0b" },
+        { label: "🖥️ Server × N",       color: "#0ea5e9" },
+        { label: "📨 Message Queue",    color: "#a855f7" },
+        { label: "⚙️ Workers",          color: "#f97316" },
+        { label: "🗄️ DB Cluster",       color: "#10b981" },
+      ],
+      7: [
+        { label: "👤 User",             color: "#6366f1" },
+        { label: "🛡️ Rate Limiter",     color: "#ef4444" },
+        { label: "⚖️ Load Balancer",    color: "#f59e0b" },
+        { label: "🔌 Circuit Breaker",  color: "#f97316" },
+        { label: "🖥️ Server × N",       color: "#0ea5e9" },
+        { label: "📨 Queue + DB",       color: "#10b981" },
+      ],
+      8: [
+        { label: "🌍 Global Users",     color: "#6366f1" },
+        { label: "🌐 CDN",             color: "#facc15" },
+        { label: "⚖️ Global LB",        color: "#f59e0b" },
+        { label: "🖥️ Microservices",    color: "#0ea5e9" },
+        { label: "📨 Kafka",            color: "#a855f7" },
+        { label: "🗄️ Distributed DB",   color: "#10b981" },
+      ],
+    };
+
+    const STORAGE_KEY = "arch_academy_v1";
+
+    function loadState() {
+      try {
+        const s = localStorage.getItem(STORAGE_KEY);
+        return s ? JSON.parse(s) : null;
+      } catch { return null; }
+    }
+
+    function saveState(state) {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
+    }
+
+>>>>>>> claude/architecture-academy-setup-Sg7VS
     function getLevelInfo(xp) {
       let current = XP_LEVELS[0], next = XP_LEVELS[1];
       for (let i = 0; i < XP_LEVELS.length; i++) {
@@ -51,6 +153,7 @@
       return { current, next };
     }
 
+<<<<<<< HEAD
     // ── System diagrams per week ─────────────────────────────────────────────
     const SYSTEM_NODES = {
       1: [
@@ -94,11 +197,62 @@
                   background: n.color + "22", border: `1.5px solid ${n.color}`,
                   borderRadius: 8, padding: "10px 14px", color: "#f1f5f9",
                   fontWeight: 600, fontSize: 13, textAlign: "center", minWidth: 110,
+=======
+    // ── Sub-components ───────────────────────────────────────────────────────
+
+    function XPBar({ xp }) {
+      const { current, next } = getLevelInfo(xp);
+      const pct = next ? ((xp - current.minXP) / (next.minXP - current.minXP)) * 100 : 100;
+      return (
+        <div>
+          <div style={{ display:"flex", justifyContent:"space-between", marginBottom:6 }}>
+            <span style={{ fontWeight:700, color:"#facc15", fontSize:15 }}>
+              Lvl {current.level} — {current.title}
+            </span>
+            <span style={{ color:"#64748b", fontSize:12 }}>
+              {xp} {next ? `/ ${next.minXP} XP` : "XP (MAX)"}
+            </span>
+          </div>
+          <div style={{ background:"#1e293b", borderRadius:99, height:10, overflow:"hidden" }}>
+            <div style={{
+              width:`${pct}%`, height:"100%",
+              background:"linear-gradient(90deg,#facc15,#f97316)",
+              borderRadius:99, transition:"width .6s ease",
+            }}/>
+          </div>
+          {next && (
+            <div style={{ color:"#475569", fontSize:11, marginTop:4 }}>
+              {next.minXP - xp} XP until {next.title}
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    function SystemDiagram({ week }) {
+      const nodes = SYSTEM_NODES[week] || SYSTEM_NODES[1];
+      return (
+        <div style={{ background:"#0a0f1e", borderRadius:10, padding:16, marginTop:12 }}>
+          <div style={{ color:"#475569", fontSize:11, marginBottom:14, textTransform:"uppercase", letterSpacing:1 }}>
+            Week {week} Architecture
+          </div>
+          <div style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:8, flexWrap:"wrap" }}>
+            {nodes.map((n, i) => (
+              <React.Fragment key={i}>
+                <div style={{
+                  background:n.color+"22", border:`1.5px solid ${n.color}`,
+                  borderRadius:8, padding:"10px 14px", color:"#f1f5f9",
+                  fontWeight:600, fontSize:13, textAlign:"center", minWidth:110,
+>>>>>>> claude/architecture-academy-setup-Sg7VS
                 }}>
                   {n.label}
                 </div>
                 {i < nodes.length - 1 && (
+<<<<<<< HEAD
                   <div style={{ color: "#334155", fontSize: 20 }}>→</div>
+=======
+                  <div style={{ color:"#334155", fontSize:20 }}>→</div>
+>>>>>>> claude/architecture-academy-setup-Sg7VS
                 )}
               </React.Fragment>
             ))}
@@ -107,6 +261,7 @@
       );
     }
 
+<<<<<<< HEAD
     function XPBar({ xp }) {
       const { current, next } = getLevelInfo(xp);
       const pct = next ? ((xp - current.minXP) / (next.minXP - current.minXP)) * 100 : 100;
@@ -165,6 +320,34 @@
               <span key={t} style={{
                 background: "#1e293b", color: "#64748b",
                 fontSize: 10, padding: "2px 7px", borderRadius: 99, border: "1px solid #334155",
+=======
+    function WeekCard({ data, currentWeek }) {
+      const past = data.week < currentWeek;
+      const active = data.week === currentWeek;
+      return (
+        <div style={{
+          background: active ? "#1e3a5f" : "#0f172a",
+          border:`1px solid ${active ? "#3b82f6" : past ? "#22c55e33" : "#1e293b"}`,
+          borderRadius:10, padding:"12px 14px",
+          opacity: data.week > currentWeek ? 0.4 : 1, position:"relative",
+        }}>
+          {active && (
+            <span style={{
+              position:"absolute", top:8, right:10,
+              background:"#3b82f6", color:"#fff",
+              fontSize:9, fontWeight:700, padding:"2px 7px",
+              borderRadius:99, textTransform:"uppercase",
+            }}>Active</span>
+          )}
+          {past && <span style={{ position:"absolute", top:8, right:10, color:"#22c55e", fontSize:14 }}>✓</span>}
+          <div style={{ color:"#475569", fontSize:10, marginBottom:3 }}>Week {data.week}</div>
+          <div style={{ color:"#f1f5f9", fontWeight:700, fontSize:13, marginBottom:7 }}>{data.title}</div>
+          <div style={{ display:"flex", gap:5, flexWrap:"wrap" }}>
+            {data.topics.map(t => (
+              <span key={t} style={{
+                background:"#1e293b", color:"#64748b",
+                fontSize:10, padding:"2px 7px", borderRadius:99, border:"1px solid #334155",
+>>>>>>> claude/architecture-academy-setup-Sg7VS
               }}>{t}</span>
             ))}
           </div>
@@ -172,6 +355,7 @@
       );
     }
 
+<<<<<<< HEAD
     function Dashboard() {
       const [xp]          = React.useState(0);
       const [currentWeek] = React.useState(1);
@@ -187,12 +371,147 @@
 
       const sectionLabel = (text) => (
         <div style={{ color: "#475569", fontSize: 11, textTransform: "uppercase", letterSpacing: 1, marginBottom: 14 }}>
+=======
+    // ── Toast notification ───────────────────────────────────────────────────
+    function Toast({ message, onDone }) {
+      React.useEffect(() => {
+        const t = setTimeout(onDone, 2200);
+        return () => clearTimeout(t);
+      }, []);
+      return (
+        <div style={{
+          position:"fixed", bottom:24, left:"50%", transform:"translateX(-50%)",
+          background:"#22c55e", color:"#fff", fontWeight:700, fontSize:15,
+          padding:"12px 28px", borderRadius:99, zIndex:999,
+          boxShadow:"0 4px 24px #00000066", pointerEvents:"none",
+          animation:"fadeUp .3s ease",
+        }}>
+          {message}
+        </div>
+      );
+    }
+
+    // ── XP Award modal ───────────────────────────────────────────────────────
+    function XPModal({ onAward, onClose }) {
+      const options = [
+        { label: "Correct answer (hard)", xp: 20, color: "#22c55e" },
+        { label: "Correct answer",        xp: 15, color: "#0ea5e9" },
+        { label: "Partially correct",     xp: 10, color: "#f59e0b" },
+        { label: "Wrong — but learned",   xp: 5,  color: "#a855f7" },
+      ];
+      return (
+        <div style={{
+          position:"fixed", inset:0, background:"#000000aa",
+          display:"flex", alignItems:"center", justifyContent:"center", zIndex:100,
+        }} onClick={onClose}>
+          <div style={{
+            background:"#0f172a", border:"1px solid #1e293b",
+            borderRadius:16, padding:28, width:300, maxWidth:"90vw",
+          }} onClick={e => e.stopPropagation()}>
+            <div style={{ color:"#f1f5f9", fontWeight:700, fontSize:17, marginBottom:18 }}>
+              🎯 Award XP
+            </div>
+            {options.map(o => (
+              <button key={o.xp} className="btn" onClick={() => onAward(o.xp)} style={{
+                display:"block", width:"100%", marginBottom:10,
+                background:o.color+"22", border:`1.5px solid ${o.color}`,
+                color:o.color, padding:"12px 16px", fontSize:14, textAlign:"left",
+              }}>
+                +{o.xp} XP — {o.label}
+              </button>
+            ))}
+            <button className="btn" onClick={onClose} style={{
+              display:"block", width:"100%", marginTop:4,
+              background:"#1e293b", color:"#64748b",
+              padding:"10px 16px", fontSize:13,
+            }}>Cancel</button>
+          </div>
+        </div>
+      );
+    }
+
+    // ── Reset confirm ────────────────────────────────────────────────────────
+    function ResetModal({ onConfirm, onClose }) {
+      return (
+        <div style={{
+          position:"fixed", inset:0, background:"#000000aa",
+          display:"flex", alignItems:"center", justifyContent:"center", zIndex:100,
+        }} onClick={onClose}>
+          <div style={{
+            background:"#0f172a", border:"1px solid #ef444466",
+            borderRadius:16, padding:28, width:300, maxWidth:"90vw",
+          }} onClick={e => e.stopPropagation()}>
+            <div style={{ color:"#ef4444", fontWeight:700, fontSize:17, marginBottom:10 }}>⚠️ Reset Progress?</div>
+            <div style={{ color:"#94a3b8", fontSize:13, marginBottom:20 }}>
+              This will wipe all XP and week progress from this browser. Cannot be undone.
+            </div>
+            <button className="btn" onClick={onConfirm} style={{
+              display:"block", width:"100%", marginBottom:10,
+              background:"#ef444422", border:"1.5px solid #ef4444",
+              color:"#ef4444", padding:"12px", fontSize:14,
+            }}>Yes, reset everything</button>
+            <button className="btn" onClick={onClose} style={{
+              display:"block", width:"100%",
+              background:"#1e293b", color:"#64748b",
+              padding:"10px", fontSize:13,
+            }}>Cancel</button>
+          </div>
+        </div>
+      );
+    }
+
+    // ── Main Dashboard ───────────────────────────────────────────────────────
+    function Dashboard() {
+      const saved = loadState();
+      const [xp, setXp]               = React.useState(saved?.xp ?? 0);
+      const [currentWeek, setWeek]    = React.useState(saved?.currentWeek ?? 1);
+      const [showXPModal, setXPModal] = React.useState(false);
+      const [showReset, setReset]     = React.useState(false);
+      const [toast, setToast]         = React.useState(null);
+
+      React.useEffect(() => {
+        saveState({ xp, currentWeek });
+      }, [xp, currentWeek]);
+
+      function awardXP(amount) {
+        setXp(prev => prev + amount);
+        setXPModal(false);
+        setToast(`+${amount} XP earned! 🎉`);
+      }
+
+      function advanceWeek() {
+        if (currentWeek < 8) {
+          setWeek(w => w + 1);
+          setToast(`Week ${currentWeek + 1} unlocked! 🚀`);
+        }
+      }
+
+      function resetAll() {
+        setXp(0); setWeek(1);
+        setReset(false);
+        setToast("Progress reset.");
+      }
+
+      const { current: lvl } = getLevelInfo(xp);
+      const correctPicks = Math.floor(xp / 15);
+
+      const card = (children, style = {}) => (
+        <div style={{
+          background:"#0f172a", border:"1px solid #1e293b",
+          borderRadius:12, padding:20, marginBottom:20, ...style,
+        }}>{children}</div>
+      );
+
+      const label = (text) => (
+        <div style={{ color:"#475569", fontSize:11, textTransform:"uppercase", letterSpacing:1, marginBottom:14 }}>
+>>>>>>> claude/architecture-academy-setup-Sg7VS
           {text}
         </div>
       );
 
       return (
         <div style={{
+<<<<<<< HEAD
           background: "#0a0f1e", color: "#f1f5f9",
           minHeight: "100vh", padding: "24px 16px", maxWidth: 860, margin: "0 auto",
         }}>
@@ -226,11 +545,48 @@
                 <div key={label}>
                   <div style={{ color: "#475569", fontSize: 11 }}>{label}</div>
                   <div style={{ color, fontWeight: 700, fontSize: 22 }}>{value}</div>
+=======
+          background:"#0a0f1e", color:"#f1f5f9",
+          minHeight:"100vh", padding:"24px 16px", maxWidth:860, margin:"0 auto",
+        }}>
+
+          {/* Header */}
+          <div style={{ display:"flex", alignItems:"center", gap:14, marginBottom:28 }}>
+            <div style={{ fontSize:36 }}>🏛️</div>
+            <div style={{ flex:1 }}>
+              <h1 style={{ fontSize:22, fontWeight:800 }}>Architecture Academy</h1>
+              <div style={{ color:"#475569", fontSize:13, marginTop:2 }}>8-Week System Design Mastery</div>
+            </div>
+            <div style={{
+              background:"#1e293b", border:"1px solid #334155",
+              borderRadius:10, padding:"8px 16px", textAlign:"center",
+            }}>
+              <div style={{ color:"#475569", fontSize:10, textTransform:"uppercase", letterSpacing:1 }}>Week</div>
+              <div style={{ color:"#facc15", fontWeight:800, fontSize:26, lineHeight:1 }}>{currentWeek}</div>
+              <div style={{ color:"#475569", fontSize:10 }}>of 8</div>
+            </div>
+          </div>
+
+          {/* Progress */}
+          {card(<>
+            {label("Progress")}
+            <XPBar xp={xp} />
+            <div style={{ display:"flex", gap:28, marginTop:14 }}>
+              {[
+                { l:"Total XP",      v:xp,           c:"#facc15" },
+                { l:"Correct Picks", v:correctPicks, c:"#22c55e" },
+                { l:"Current Week",  v:currentWeek,  c:"#0ea5e9" },
+              ].map(({ l, v, c }) => (
+                <div key={l}>
+                  <div style={{ color:"#475569", fontSize:11 }}>{l}</div>
+                  <div style={{ color:c, fontWeight:700, fontSize:22 }}>{v}</div>
+>>>>>>> claude/architecture-academy-setup-Sg7VS
                 </div>
               ))}
             </div>
           </>)}
 
+<<<<<<< HEAD
           {/* System Diagram */}
           {card(<>
             {sectionLabel("Your Growing System")}
@@ -238,19 +594,75 @@
             <div style={{ color: "#334155", fontSize: 11, textAlign: "center", marginTop: 12 }}>
               Architecture evolves each week as we add components
             </div>
+=======
+          {/* Controls */}
+          {card(<>
+            {label("Controls")}
+            <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
+              <button className="btn" onClick={() => setXPModal(true)} style={{
+                background:"#22c55e22", border:"1.5px solid #22c55e",
+                color:"#22c55e", padding:"12px 20px", fontSize:14, flex:1, minWidth:140,
+              }}>
+                🎯 Award XP
+              </button>
+              <button className="btn"
+                onClick={advanceWeek}
+                disabled={currentWeek >= 8}
+                style={{
+                  background: currentWeek < 8 ? "#3b82f622" : "#1e293b",
+                  border:`1.5px solid ${currentWeek < 8 ? "#3b82f6" : "#334155"}`,
+                  color: currentWeek < 8 ? "#3b82f6" : "#475569",
+                  padding:"12px 20px", fontSize:14, flex:1, minWidth:140,
+                  cursor: currentWeek >= 8 ? "not-allowed" : "pointer",
+                }}>
+                📅 Next Week {currentWeek < 8 ? `→ ${currentWeek + 1}` : "(done!)"}
+              </button>
+              <button className="btn" onClick={() => setReset(true)} style={{
+                background:"#ef444411", border:"1.5px solid #ef444433",
+                color:"#64748b", padding:"12px 16px", fontSize:13,
+              }}>
+                ↺ Reset
+              </button>
+            </div>
+            <div style={{ color:"#334155", fontSize:11, marginTop:10 }}>
+              Progress is saved automatically in your browser (localStorage).
+            </div>
+          </>)}
+
+          {/* System Diagram */}
+          {card(<>
+            {label("Your Growing System")}
+            <SystemDiagram week={currentWeek} />
+>>>>>>> claude/architecture-academy-setup-Sg7VS
           </>)}
 
           {/* Curriculum */}
           {card(<>
+<<<<<<< HEAD
             {sectionLabel("Curriculum Roadmap")}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+=======
+            {label("Curriculum Roadmap")}
+            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10 }}>
+>>>>>>> claude/architecture-academy-setup-Sg7VS
               {WEEKS.map(w => <WeekCard key={w.week} data={w} currentWeek={currentWeek} />)}
             </div>
           </>)}
 
+<<<<<<< HEAD
           <div style={{ color: "#1e293b", textAlign: "center", fontSize: 11, marginTop: 8 }}>
             Architecture Academy · Built with Claude Code
           </div>
+=======
+          <div style={{ color:"#1e293b", textAlign:"center", fontSize:11, marginTop:8 }}>
+            Architecture Academy · Built with Claude Code
+          </div>
+
+          {/* Modals */}
+          {showXPModal && <XPModal onAward={awardXP} onClose={() => setXPModal(false)} />}
+          {showReset   && <ResetModal onConfirm={resetAll} onClose={() => setReset(false)} />}
+          {toast       && <Toast message={toast} onDone={() => setToast(null)} />}
+>>>>>>> claude/architecture-academy-setup-Sg7VS
         </div>
       );
     }
