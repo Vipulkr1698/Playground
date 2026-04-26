@@ -1,0 +1,11 @@
+{
+  "xp": 0,
+  "currentWeek": 1,
+  "currentDay": 1,
+  "level": 1,
+  "levelTitle": "Intern Architect",
+  "completedTopics": [],
+  "miniGameHistory": [],
+  "systemComponents": ["User", "Single Server", "Single Database"],
+  "lastUpdated": "2026-04-26"
+}
